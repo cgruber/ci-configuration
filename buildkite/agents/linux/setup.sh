@@ -29,6 +29,16 @@ wget ${CONFIG_URL}/${BK_ENV_FILENAME}
 sudo mv ${BK_ENV_FILENAME} ${BK_ENV}
 sudo sed -i "s/__bazelisk_github_token__/${BAZELISK_GITHUB_TOKEN}/g" ${BK_ENV}
 
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main"
+sudo apt-get update
+sudo apt-get install -y clang-6.0 clang
+export CC=clang
+
+sudo apt-get update
+sudo apt-get install -y openjdk-8-jdk-headless
+sudo apt-get install -y openjdk-11-jdk-headless
+
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
 
 
