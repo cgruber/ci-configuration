@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "$(sha256sum $0)" > /var/log/ci-configuration.sha256
+
 GH_RAW_URL=https://raw.githubusercontent.com
 OS=linux
 CFG_PROJECT_SLUG=cgruber/ci-configuration
