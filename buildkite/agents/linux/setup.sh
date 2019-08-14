@@ -21,8 +21,10 @@ wget https://github.com/bazelbuild/bazelisk/releases/download/v0.0.7/bazelisk-li
 sudo install bazelisk-linux-amd64 /usr/local/bin/bazel
 sudo chmod a+x /usr/local/bin/bazel
 
-# Install the kotlinc tooling (not needed for bazel, but needed for kscript
-sudo snap install kotlin
+sudo apt-get install -y zip unzip
+
+# Install the kotlinc tooling (not needed for bazel, but needed for kscript)
+sudo snap install kotlin --classic
 
 # Install kscript
 wget https://github.com/holgerbrandl/kscript/releases/download/v2.8.0/kscript-2.8.0-bin.zip 
