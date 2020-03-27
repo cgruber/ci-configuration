@@ -31,7 +31,7 @@ wget https://github.com/holgerbrandl/kscript/releases/download/v2.8.0/kscript-2.
 unzip kscript-2.8.0-bin.zip
 sudo install kscript-2.8.0/bin/* /usr/local/bin/
 
-sudo apt-get update && sudo apt-get install -y buildkite-agent
+sudo apt-get install -y buildkite-agent
 sudo sed -i "s/xxx/${BUILDKITE_TOKEN}/g" ${BK_CONFIG_FILE}
 cat >> ${BK_CONFIG_FILE} <<EOF
 tags="os=linux,ci=true,queue=default"
