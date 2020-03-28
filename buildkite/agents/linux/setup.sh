@@ -72,7 +72,7 @@ sudo snap install kotlin --classic
 
 echo "SETUP: Installing kscript ${KSCRIPT_VERSION}"
 # Install kscript
-wget https://github.com/holgerbrandl/kscript/releases/download/v${KSCRIPT_VERSION}/kscript-${KSCRIPT_VERSION}-bin.zip 
+wget --progress=dot:giga https://github.com/holgerbrandl/kscript/releases/download/v${KSCRIPT_VERSION}/kscript-${KSCRIPT_VERSION}-bin.zip 
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
@@ -92,7 +92,7 @@ EOF
 
 echo "SETUP: Peparing Buildkite Environment"
 # Set up the worker environment.
-wget ${CONFIG_URL}/${BK_ENV_FILENAME}
+wget --progress=dot ${CONFIG_URL}/${BK_ENV_FILENAME}
 sudo mv ${BK_ENV_FILENAME} ${BK_ENV}
 sudo sed -i "s/__bazelisk_github_token__/${BAZELISK_GITHUB_TOKEN}/g" ${BK_ENV}
 
