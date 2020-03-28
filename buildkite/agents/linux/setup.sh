@@ -79,7 +79,6 @@ wget --progress=dot:giga https://github.com/holgerbrandl/kscript/releases/downlo
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
-install_package ca-certificates-java
 install_package openjdk-8-jdk-headless
 
 install_package build-essential
