@@ -64,7 +64,6 @@ install_binary https://github.com/bazelbuild/bazelisk/releases/download/v${BAZEL
 install_binary https://github.com/bazelbuild/buildtools/releases/download/${BUILDIFIER_VERSION}/buildifier
 install_binary https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION}/ktlint
 
-echo "SETUP: Installing zip/unzip"
 install_package zip unzip
 
 echo "SETUP: Installing kotlinc local toolchain"
@@ -77,11 +76,9 @@ wget https://github.com/holgerbrandl/kscript/releases/download/v${KSCRIPT_VERSIO
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
-echo "SETUP: Installing CLANG"
 install_package clang-6.0 clang
 export CC=clang
 
-echo "SETUP: Installing JVMs"
 install_package ca-certificates-java
 install_package openjdk-8-jdk-headless
 install_package openjdk-11-jdk-headless
@@ -98,15 +95,6 @@ echo "SETUP: Peparing Buildkite Environment"
 wget ${CONFIG_URL}/${BK_ENV_FILENAME}
 sudo mv ${BK_ENV_FILENAME} ${BK_ENV}
 sudo sed -i "s/__bazelisk_github_token__/${BAZELISK_GITHUB_TOKEN}/g" ${BK_ENV}
-
-echo "SETUP: Installing CLANG"
-install_package clang-6.0 clang
-export CC=clang
-
-echo "SETUP: Installing JVMs"
-install_package ca-certificates-java
-install_package openjdk-8-jdk-headless
-install_package openjdk-11-jdk-headless
 
 echo "SETUP: Starting Buildkite Agent"
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
