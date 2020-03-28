@@ -46,12 +46,13 @@ function install_binary() {
   sudo install ${binary} /usr/local/bin/${local_binary}
   sudo chmod a+x /usr/local/bin/${local_binary}
 }
+
 echo "SETUP: Setting up debian package sources"
 # Setup apt-get sources.
-sudo apt-add-repository "deb http://ftp.us.debian.org/debian sid main"
-sudo apt-add-repository "deb https://apt.buildkite.com/buildkite-agent stable main"
+echo "deb http://ftp.us.debian.org/debian sid main" | sudo tee /etc/apt/sources.list.d/openjdk8.list
+echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite.list
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main"
+echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" | sudo tee /etc/apt/sources.list.d/clang.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 sudo apt-get update
 
