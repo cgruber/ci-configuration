@@ -1,5 +1,8 @@
 #!/bin/bash
 
+[[ "${SET_XTRACE:-false}" != true ]] || set -o xtrace
+set -o errexit; set -o pipefail; set -o nounset
+
 echo "SETUP: START"
 
 GH_RAW_URL=https://raw.githubusercontent.com
