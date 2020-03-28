@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "SETUP: START"
+
 GH_RAW_URL=https://raw.githubusercontent.com
 OS=linux
 CFG_PROJECT_SLUG=cgruber/ci-configuration
@@ -17,59 +19,72 @@ KSCRIPT_VERSION="2.9.3"
 BUILDIFIER_VERSION="2.2.1"
 KTLINT_VERSION="0.36.0"
 
+echo "SETUP: Setting up debian package sources"
 # Setup apt-get sources.
 echo "deb http://ftp.us.debian.org/debian sid main" | sudo tee /etc/apt/sources.list.d/openjdk8.list
 echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 sudo apt-get update
 
+echo "SETUP: Installing WGET"
 # Because debian only has curl.
 sudo apt-get install wget
 
+echo "SETUP: Installing bazelisk ${BAZELISK_VERSION}"
 # Install bazelisk (as bazel, as it does on macos)
 wget https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64 
 sudo install bazelisk-linux-amd64 /usr/local/bin/bazel
 sudo chmod a+x /usr/local/bin/bazel
 
+echo "SETUP: Installing buildifier ${BUILDIFIER_VERSION}"
 wget https://github.com/bazelbuild/buildtools/releases/download/${BUILDIFIER_VERSION}/buildifier
 sudo install buildifier /usr/local/bin/buildifier
 sudo chmod a+x /usr/local/bin/buildifier
 
+echo "SETUP: Installing ktlint ${KTLINT_VERSION}"
 wget https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION}/ktlint
 sudo install ktlint /usr/local/bin/ktlint
 sudo chmod a+x /usr/local/bin/ktlint
 
+echo "SETUP: Installing zip/unzip"
 sudo apt-get install -y zip unzip
 
+echo "SETUP: Installing kotlinc local toolchain"
 # Install the kotlinc tooling (not needed for bazel, but needed for kscript)
 sudo snap install kotlin --classic
 
+echo "SETUP: Installing kscript ${KSCRIPT_VERSION}"
 # Install kscript
 wget https://github.com/holgerbrandl/kscript/releases/download/v${KSCRIPT_VERSION}/kscript-${KSCRIPT_VERSION}-bin.zip 
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
+echo "SETUP: Installing Buildkite Agent"
 sudo apt-get install -y buildkite-agent
 sudo sed -i "s/xxx/${BUILDKITE_TOKEN}/g" ${BK_CONFIG_FILE}
 cat >> ${BK_CONFIG_FILE} <<EOF
 tags="os=linux,ci=true,queue=default"
 EOF
 
+echo "SETUP: Peparing Buildkite Environment"
 # Set up the worker environment.
 wget ${CONFIG_URL}/${BK_ENV_FILENAME}
 sudo mv ${BK_ENV_FILENAME} ${BK_ENV}
 sudo sed -i "s/__bazelisk_github_token__/${BAZELISK_GITHUB_TOKEN}/g" ${BK_ENV}
 
+echo "SETUP: Installing CLANG"
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main"
 sudo apt-get install -y clang-6.0 clang
 export CC=clang
 
+echo "SETUP: Installing JVMs"
 sudo apt-get install -y ca-certificates-java
 sudo apt-get install -y openjdk-8-jdk-headless
 sudo apt-get install -y openjdk-11-jdk-headless
-sudo apt-get install -y build-essential
 
+echo "SETUP: Starting Buildkite Agent"
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
 
+echo "SETUP: END"
 
