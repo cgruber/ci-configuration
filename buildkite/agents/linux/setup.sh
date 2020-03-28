@@ -57,15 +57,12 @@ echo "SETUP: Setting up debian package sources"
 # Setup apt-get sources.
 echo "deb http://ftp.us.debian.org/debian sid main" | sudo tee /etc/apt/sources.list.d/openjdk8.list
 echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite.list
-wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
 echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" | sudo tee /etc/apt/sources.list.d/clang.list
+echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main" | sudo tee /etc/apt/sources.list.d/adoptopenjdk.list
+wget -qO - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 sudo apt-get update
-
-
-echo "SETUP: Upgrade libc-bin."
-# This has to happen early, as it blocks the openjdks.
-sudo apt-get upgrade -y libc-bin
 
 # Install bazelisk (as bazel, as it does on macos)
 install_binary https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64 bazel
@@ -84,8 +81,7 @@ wget --progress=dot:giga https://github.com/holgerbrandl/kscript/releases/downlo
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
-install_package openjdk-8-jdk-headless
-
+install_package adoptopenjdk-8-hotspot
 install_package build-essential
 export CC=gcc
 
