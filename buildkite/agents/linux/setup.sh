@@ -18,6 +18,7 @@ BUILDIFIER_VERSION="2.2.1"
 KTLINT_VERSION="0.36.0"
 
 # Setup apt-get sources.
+echo "deb http://ftp.us.debian.org/debian sid main" | sudo tee /etc/apt/sources.list.d/openjdk8.list
 echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 sudo apt-get update
@@ -64,9 +65,9 @@ sudo apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6
 sudo apt-get install -y clang-6.0 clang
 export CC=clang
 
+sudo apt-get install -y ca-certificates-java
 sudo apt-get install -y openjdk-8-jdk-headless
 sudo apt-get install -y openjdk-11-jdk-headless
-
 sudo apt-get install -y build-essential
 
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
