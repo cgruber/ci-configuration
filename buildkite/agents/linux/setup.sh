@@ -57,9 +57,7 @@ echo "SETUP: Setting up debian package sources"
 # Setup apt-get sources.
 echo "deb http://ftp.us.debian.org/debian sid main" | sudo tee /etc/apt/sources.list.d/openjdk8.list
 echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite.list
-echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" | sudo tee /etc/apt/sources.list.d/clang.list
-echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main" | sudo tee /etc/apt/sources.list.d/adoptopenjdk.list
-wget -qO - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ stretch main" | sudo tee /etc/apt/sources.list.d/adoptopenjdk.list
 wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 sudo apt-get update
@@ -81,6 +79,7 @@ wget --progress=dot:giga https://github.com/holgerbrandl/kscript/releases/downlo
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
+install_package adoptopenjdk-8-hotspot
 install_package build-essential
 export CC=gcc
 
