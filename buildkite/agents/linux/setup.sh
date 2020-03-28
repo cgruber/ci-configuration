@@ -76,8 +76,8 @@ wget --progress=dot:giga https://github.com/holgerbrandl/kscript/releases/downlo
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
-install_package clang-10
-export CC=clang-10
+install_package clang-6.0
+export CC=clang-6.0
 
 install_package ca-certificates-java
 install_package openjdk-8-jdk-headless
