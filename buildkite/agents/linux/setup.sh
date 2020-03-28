@@ -55,7 +55,7 @@ install_package wget snapd git mercurial software-properties-common
 
 echo "SETUP: Setting up debian package sources"
 # Setup apt-get sources.
-sudo add-apt-repository --yes deb http://ftp.us.debian.org/debian
+sudo add-apt-repository --yes http://ftp.us.debian.org/debian
 sudo add-apt-repository --yes https://apt.buildkite.com/buildkite-agent
 sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
