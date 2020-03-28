@@ -63,7 +63,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99
 sudo apt-get update
 
 # Install bazelisk (as bazel, as it does on macos)
-install_binary https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64 bazelisk
+install_binary https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64 bazel
 install_binary https://github.com/bazelbuild/buildtools/releases/download/${BUILDIFIER_VERSION}/buildifier
 install_binary https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION}/ktlint
 
