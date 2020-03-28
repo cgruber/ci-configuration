@@ -11,6 +11,12 @@ BK_HOOKS_DIR=${BK_CONFIG_DIR}/hooks
 BK_ENV_FILENAME=environment
 BK_ENV=${BK_HOOKS_DIR}/${BK_ENV_FILENAME}
 
+# Versions
+BAZELISK_VERSION="1.3.0"
+KSCRIPT_VERSION="2.9.3"
+BUILDIFIER_VERSION="2.2.1"
+KTLINT_VERSION="0.36.0"
+
 # Setup apt-get sources.
 echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
@@ -20,9 +26,17 @@ sudo apt-get update
 sudo apt-get install wget
 
 # Install bazelisk (as bazel, as it does on macos)
-wget https://github.com/bazelbuild/bazelisk/releases/download/v0.0.7/bazelisk-linux-amd64 
+wget https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64 
 sudo install bazelisk-linux-amd64 /usr/local/bin/bazel
 sudo chmod a+x /usr/local/bin/bazel
+
+wget https://github.com/bazelbuild/buildtools/releases/download/${BUILDIFIER_VERSION}/buildifier
+sudo install buildifier /usr/local/bin/buildifier
+sudo chmod a+x /usr/local/bin/buildifier
+
+wget https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION}/ktlint
+sudo install ktlint /usr/local/bin/ktlint
+sudo chmod a+x /usr/local/bin/ktlint
 
 sudo apt-get install -y zip unzip
 
@@ -30,9 +44,9 @@ sudo apt-get install -y zip unzip
 sudo snap install kotlin --classic
 
 # Install kscript
-wget https://github.com/holgerbrandl/kscript/releases/download/v2.8.0/kscript-2.8.0-bin.zip 
-unzip kscript-2.8.0-bin.zip
-sudo install kscript-2.8.0/bin/* /usr/local/bin/
+wget https://github.com/holgerbrandl/kscript/releases/download/v${KSCRIPT_VERSION}/kscript-${KSCRIPT_VERSION}-bin.zip 
+unzip kscript-${KSCRIPT_VERSION}-bin.zip
+sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
 sudo apt-get install -y buildkite-agent
 sudo sed -i "s/xxx/${BUILDKITE_TOKEN}/g" ${BK_CONFIG_FILE}
