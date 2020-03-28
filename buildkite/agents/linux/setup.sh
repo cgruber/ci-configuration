@@ -53,6 +53,10 @@ echo "SETUP: Setting up preconditions"
 # THIS MUST BE FIRST!!! as it is used by other installs. Even if it installs from an older deb pkg.
 install_package wget snapd git mercurial
 
+echo "SETUP: Updating libc-bin."
+# This has to happen early, as it blocks the openjdks.
+install_package libc-bin
+
 echo "SETUP: Setting up debian package sources"
 # Setup apt-get sources.
 echo "deb http://ftp.us.debian.org/debian sid main" | sudo tee /etc/apt/sources.list.d/openjdk8.list
