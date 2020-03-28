@@ -50,14 +50,6 @@ echo "SETUP: Setting up preconditions"
 # THIS MUST BE FIRST!!! as it is used by other installs. Even if it installs from an older deb pkg.
 install_package wget snapd git mercurial software-properties-common
 
-echo "SETUP: Setting up debian package sources"
-# Setup apt-get sources.
-sudo add-apt-repository --yes http://ftp.us.debian.org/debian
-sudo add-apt-repository --yes https://apt.buildkite.com/buildkite-agent
-sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
-wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-sudo apt-get update
-
 # Install bazelisk (as bazel, as it does on macos)
 install_binary https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64 bazel
 install_binary https://github.com/bazelbuild/buildtools/releases/download/${BUILDIFIER_VERSION}/buildifier
@@ -75,7 +67,8 @@ wget --progress=dot:giga https://github.com/holgerbrandl/kscript/releases/downlo
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
-install_package adoptopenjdk-8-hotspot
+install_package default-jdk
+
 install_package build-essential
 export CC=gcc
 
