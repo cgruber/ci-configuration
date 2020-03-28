@@ -1,8 +1,5 @@
 #!/bin/bash
 
-[[ "${SET_XTRACE:-false}" != true ]] || set -o xtrace
-set -o nounset
-
 echo "SETUP: START"
 
 GH_RAW_URL=https://raw.githubusercontent.com
