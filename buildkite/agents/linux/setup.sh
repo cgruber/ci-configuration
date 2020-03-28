@@ -16,6 +16,9 @@ echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 sudo apt-get update
 
+# Because debian only has curl.
+sudo apt-get install wget
+
 # Install bazelisk (as bazel, as it does on macos)
 wget https://github.com/bazelbuild/bazelisk/releases/download/v0.0.7/bazelisk-linux-amd64 
 sudo install bazelisk-linux-amd64 /usr/local/bin/bazel
