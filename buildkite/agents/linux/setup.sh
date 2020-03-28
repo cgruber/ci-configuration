@@ -81,7 +81,6 @@ sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
 install_package ca-certificates-java
 install_package openjdk-8-jdk-headless
-install_package openjdk-11-jdk-headless
 
 install_package build-essential
 export CC=gcc
