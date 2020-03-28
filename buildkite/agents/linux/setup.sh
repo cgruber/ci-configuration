@@ -81,7 +81,6 @@ wget --progress=dot:giga https://github.com/holgerbrandl/kscript/releases/downlo
 unzip kscript-${KSCRIPT_VERSION}-bin.zip
 sudo install kscript-${KSCRIPT_VERSION}/bin/* /usr/local/bin/
 
-install_package adoptopenjdk-8-hotspot
 install_package build-essential
 export CC=gcc
 
