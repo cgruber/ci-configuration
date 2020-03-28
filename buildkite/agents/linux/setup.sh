@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [[ "${SET_XTRACE:-false}" != true ]] || set -o xtrace
-set -o errexit; set -o pipefail; set -o nounset
+set -o nounset
 
 echo "SETUP: START"
 
@@ -59,9 +59,7 @@ sudo add-apt-repository --yes http://ftp.us.debian.org/debian
 sudo add-apt-repository --yes https://apt.buildkite.com/buildkite-agent
 sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-set +o pipefail
 sudo apt-get update
-set -o pipefail
 
 # Install bazelisk (as bazel, as it does on macos)
 install_binary https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64 bazel
