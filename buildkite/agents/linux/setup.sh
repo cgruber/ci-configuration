@@ -73,6 +73,10 @@ install_package build-essential
 export CC=gcc
 
 echo "SETUP: Installing Buildkite Agent"
+install_package apt-transport-https dirmngr
+sudo apt-key adv --keyserver ipv4.pool.sks-keyservers.net --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
+echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
+apt-get update
 install_package buildkite-agent
 sudo sed -i "s/xxx/${BUILDKITE_TOKEN}/g" ${BK_CONFIG_FILE}
 cat >> ${BK_CONFIG_FILE} <<EOF
