@@ -49,7 +49,7 @@ function install_binary() {
   sudo chmod a+x /usr/local/bin/${local_binary}
 }
 
-echo "SETUP: Setting up preconditions
+echo "SETUP: Setting up preconditions"
 # THIS MUST BE FIRST!!! as it is used by other installs. Even if it installs from an older deb pkg.
 install_package wget snapd
 
