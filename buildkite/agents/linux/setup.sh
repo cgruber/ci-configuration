@@ -42,7 +42,7 @@ function install_binary() {
   esac
   if (( $# == 4 )) ; then local_binary="$4" ; fi
   echo "SETUP: Installing ${binary} into /usr/local/bin/${local_binary} from ${url}"
-  wget ${url}
+  wget --progress=dot:giga ${url}
   sudo install ${binary} /usr/local/bin/${local_binary}
   sudo chmod a+x /usr/local/bin/${local_binary}
 }
