@@ -59,7 +59,6 @@ echo "deb http://ftp.us.debian.org/debian sid main" | sudo tee /etc/apt/sources.
 echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite.list
 echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ stretch main" | sudo tee /etc/apt/sources.list.d/adoptopenjdk.list
 wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 sudo apt-get update
 
 # Install bazelisk (as bazel, as it does on macos)
