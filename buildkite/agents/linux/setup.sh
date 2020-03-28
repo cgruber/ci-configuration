@@ -50,6 +50,8 @@ export CC=clang
 sudo apt-get install -y openjdk-8-jdk-headless
 sudo apt-get install -y openjdk-11-jdk-headless
 
+sudo apt-get install -y build-essential
+
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
 
 
