@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 export BAZELISK_GITHUB_TOKEN=__bazelisk_github_token__
-
+export CC=gcc
